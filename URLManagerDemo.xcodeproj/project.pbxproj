@@ -1,0 +1,269 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D719158A15CBCCFB007B0D3C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D719158915CBCCFB007B0D3C /* UIKit.framework */; };
+		D719158C15CBCCFB007B0D3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D719158B15CBCCFB007B0D3C /* Foundation.framework */; };
+		D719158E15CBCCFB007B0D3C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D719158D15CBCCFB007B0D3C /* CoreGraphics.framework */; };
+		D719159415CBCCFB007B0D3C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D719159215CBCCFB007B0D3C /* InfoPlist.strings */; };
+		D719159615CBCCFB007B0D3C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D719159515CBCCFB007B0D3C /* main.m */; };
+		D719159A15CBCCFB007B0D3C /* UMgrAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D719159915CBCCFB007B0D3C /* UMgrAppDelegate.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D719158515CBCCFB007B0D3C /* URLManagerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = URLManagerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D719158915CBCCFB007B0D3C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D719158B15CBCCFB007B0D3C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D719158D15CBCCFB007B0D3C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D719159115CBCCFB007B0D3C /* URLManagerDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "URLManagerDemo-Info.plist"; sourceTree = "<group>"; };
+		D719159315CBCCFB007B0D3C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D719159515CBCCFB007B0D3C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D719159715CBCCFB007B0D3C /* URLManagerDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "URLManagerDemo-Prefix.pch"; sourceTree = "<group>"; };
+		D719159815CBCCFB007B0D3C /* UMgrAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMgrAppDelegate.h; sourceTree = "<group>"; };
+		D719159915CBCCFB007B0D3C /* UMgrAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMgrAppDelegate.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D719158215CBCCFB007B0D3C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D719158A15CBCCFB007B0D3C /* UIKit.framework in Frameworks */,
+				D719158C15CBCCFB007B0D3C /* Foundation.framework in Frameworks */,
+				D719158E15CBCCFB007B0D3C /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D719157A15CBCCFB007B0D3C = {
+			isa = PBXGroup;
+			children = (
+				D719158F15CBCCFB007B0D3C /* URLManagerDemo */,
+				D719158815CBCCFB007B0D3C /* Frameworks */,
+				D719158615CBCCFB007B0D3C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D719158615CBCCFB007B0D3C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D719158515CBCCFB007B0D3C /* URLManagerDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D719158815CBCCFB007B0D3C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D719158915CBCCFB007B0D3C /* UIKit.framework */,
+				D719158B15CBCCFB007B0D3C /* Foundation.framework */,
+				D719158D15CBCCFB007B0D3C /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D719158F15CBCCFB007B0D3C /* URLManagerDemo */ = {
+			isa = PBXGroup;
+			children = (
+				D719159815CBCCFB007B0D3C /* UMgrAppDelegate.h */,
+				D719159915CBCCFB007B0D3C /* UMgrAppDelegate.m */,
+				D719159015CBCCFB007B0D3C /* Supporting Files */,
+			);
+			path = URLManagerDemo;
+			sourceTree = "<group>";
+		};
+		D719159015CBCCFB007B0D3C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D719159115CBCCFB007B0D3C /* URLManagerDemo-Info.plist */,
+				D719159215CBCCFB007B0D3C /* InfoPlist.strings */,
+				D719159515CBCCFB007B0D3C /* main.m */,
+				D719159715CBCCFB007B0D3C /* URLManagerDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D719158415CBCCFB007B0D3C /* URLManagerDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D719159D15CBCCFB007B0D3C /* Build configuration list for PBXNativeTarget "URLManagerDemo" */;
+			buildPhases = (
+				D719158115CBCCFB007B0D3C /* Sources */,
+				D719158215CBCCFB007B0D3C /* Frameworks */,
+				D719158315CBCCFB007B0D3C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = URLManagerDemo;
+			productName = URLManagerDemo;
+			productReference = D719158515CBCCFB007B0D3C /* URLManagerDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D719157C15CBCCFB007B0D3C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = UMgr;
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = jiajun;
+			};
+			buildConfigurationList = D719157F15CBCCFB007B0D3C /* Build configuration list for PBXProject "URLManagerDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D719157A15CBCCFB007B0D3C;
+			productRefGroup = D719158615CBCCFB007B0D3C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D719158415CBCCFB007B0D3C /* URLManagerDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D719158315CBCCFB007B0D3C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D719159415CBCCFB007B0D3C /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D719158115CBCCFB007B0D3C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D719159615CBCCFB007B0D3C /* main.m in Sources */,
+				D719159A15CBCCFB007B0D3C /* UMgrAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D719159215CBCCFB007B0D3C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D719159315CBCCFB007B0D3C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D719159B15CBCCFB007B0D3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D719159C15CBCCFB007B0D3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D719159E15CBCCFB007B0D3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "URLManagerDemo/URLManagerDemo-Prefix.pch";
+				INFOPLIST_FILE = "URLManagerDemo/URLManagerDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D719159F15CBCCFB007B0D3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "URLManagerDemo/URLManagerDemo-Prefix.pch";
+				INFOPLIST_FILE = "URLManagerDemo/URLManagerDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D719157F15CBCCFB007B0D3C /* Build configuration list for PBXProject "URLManagerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D719159B15CBCCFB007B0D3C /* Debug */,
+				D719159C15CBCCFB007B0D3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D719159D15CBCCFB007B0D3C /* Build configuration list for PBXNativeTarget "URLManagerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D719159E15CBCCFB007B0D3C /* Debug */,
+				D719159F15CBCCFB007B0D3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D719157C15CBCCFB007B0D3C /* Project object */;
+}
