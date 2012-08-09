@@ -25,7 +25,7 @@
     
     self.viewController = [[UMgrDemoViewController alloc] init];
     self.navigator = [[UMNavigator alloc] initWithRootViewController:self.viewController];
-    self.navigator.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
+    self.navigator.navigationBar.tintColor = [UIColor lightGrayColor];
 
     [self.navigator setViewControllerName:@"UMgrDemoViewController" forURL:@"um://demo"];
     [self.navigator setViewControllerName:@"UMgrDemoBViewController" forURL:@"um://demob"];
