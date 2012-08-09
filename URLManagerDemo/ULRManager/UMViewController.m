@@ -22,15 +22,6 @@
 
 #pragma mark - init
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initializationself.url = @"default://";
-    }
-    return self;
-}
-
 - (id)initWithURL:(NSURL *)aUrl
 {
     self = [super initWithNibName:nil bundle:nil];
@@ -49,6 +40,17 @@
         self.query = aQuery;
     }
     return self;
+}
+
+#pragma mark - before / after open
+
+- (BOOL)willOpenViewControllerWithURL:(NSURL *)aUrl
+{
+    return YES;
+}
+
+- (void)openedFromViewControllerWithURL:(NSURL *)aUrl
+{
 }
 
 @end

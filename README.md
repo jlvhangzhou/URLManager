@@ -11,12 +11,13 @@ URLManager是为iOS App开发的导航组件。使用URL Scheme管理整个App�
 在AppDelegate中初始化Navigator和配置信息
 
 <pre>
-    self.viewController = [[UMgrDemoViewController alloc] init]; // UMgrDemoViewController 是UMViewController的子类
+    self.viewController = [[UMgrDemoViewController alloc] initWithURL:[NSURL URLWithString:@"um://demo"]];
     self.navigator = [[UMNavigator alloc] initWithRootViewController:self.viewController];
     self.navigator.navigationBar.tintColor = [UIColor lightGrayColor];
 
     [self.navigator setViewControllerName:@"UMgrDemoViewController" forURL:@"um://demo"];
     [self.navigator setViewControllerName:@"UMgrDemoBViewController" forURL:@"um://demob"];
+
     self.viewController.navigator = self.navigator;
     
     [self.window addSubview:self.navigator.view];

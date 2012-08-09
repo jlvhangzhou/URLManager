@@ -41,6 +41,12 @@
     [self.view addSubview:btnB];
 }
 
+- (BOOL)willOpenViewControllerWithURL:(NSURL *)aUrl
+{
+    NSLog(@"Will Open:%@", aUrl.absoluteString);
+    return YES;
+}
+
 - (void)gotoDemoB
 {
     [self.navigator openURL:[[NSURL URLWithString:@"um://demob/path/aaa"]

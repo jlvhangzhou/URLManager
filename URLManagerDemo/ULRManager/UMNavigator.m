@@ -56,17 +56,23 @@
 - (void)openURL:(NSURL *)url
 {
     NSLog(@"open: %@", url.absoluteString);
+    UMViewController *lastViewController = (UMViewController *)[self.viewControllers lastObject];
     UMViewController *viewController = [self viewControllerForURL:url withQuery:nil];
-    [self pushViewController:viewController
-                                                animated:YES];
+    if ([lastViewController willOpenViewControllerWithURL:url]) {
+        [self pushViewController:viewController animated:YES];
+        [viewController openedFromViewControllerWithURL:lastViewController.umUrl];
+    }
 }
 
 - (void)openURL:(NSURL *)url withQuery:(NSDictionary *)query
 {
     NSLog(@"open: %@", url.absoluteString);
+    UMViewController *lastViewController = (UMViewController *)[self.viewControllers lastObject];
     UMViewController *viewController = [self viewControllerForURL:url withQuery:query];
-    [self pushViewController:viewController
-                                         animated:YES];
+    if ([lastViewController willOpenViewControllerWithURL:url]) {
+        [self pushViewController:viewController animated:YES];
+        [viewController openedFromViewControllerWithURL:lastViewController.umUrl];
+    }
 }
 
 #pragma mark - getter

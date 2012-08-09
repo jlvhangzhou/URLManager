@@ -23,7 +23,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    self.viewController = [[UMgrDemoViewController alloc] init];
+    self.viewController = [[UMgrDemoViewController alloc] initWithURL:[NSURL URLWithString:@"um://demo"]];
     self.navigator = [[UMNavigator alloc] initWithRootViewController:self.viewController];
     self.navigator.navigationBar.tintColor = [UIColor lightGrayColor];
 
