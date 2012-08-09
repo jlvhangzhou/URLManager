@@ -19,16 +19,14 @@
 
 #pragma mark - init
 
-- (id)initWithRootViewController:(UIViewController *)rootViewController
+- (id)initWithRootViewController:(UMViewController *)rootViewController
 {
     self = [super initWithRootViewController:rootViewController];
     if (self) {
         self.config = [[NSMutableDictionary alloc] init];
-
-        return self;
+        rootViewController.navigator = self;
     }
-
-    return nil;
+    return self;
 }
 
 #pragma mark - life circle

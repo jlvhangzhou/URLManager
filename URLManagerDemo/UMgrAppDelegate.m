@@ -31,8 +31,6 @@
     [self.navigator setViewControllerName:@"UMgrDemoViewController" forURL:@"um://demo"];
     [self.navigator setViewControllerName:@"UMgrDemoBViewController" forURL:@"um://demob"];
 
-    self.viewController.navigator = self.navigator;
-    
     [self.window addSubview:self.navigator.view];
     
     return YES;
