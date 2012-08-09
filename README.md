@@ -3,7 +3,7 @@ URLManager
 
 URLManager是为iOS App开发的导航组件。使用URL Scheme管理整个App的ViewController。
 
-安装/配置
+安装/配置/使用
 ======================
 
 把URLManager目录拷贝到你的工程下。
@@ -46,4 +46,13 @@ ViewController的初始化方法变为
                   withQuery:[NSDictionary dictionaryWithObjectsAndKeys:
                              [NSArray arrayWithObjects:@"1", @"2", nil], @"q_key", nil]];
 </pre>
+
+在每一个ViewController中，通过实现
+
+<pre>
+- (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl;
+- (void)openedFromViewControllerWithURL:(NSURL *)aUrl;
+</pre>
+
+可以捕捉到打开一个新的ViewController的动作。
 

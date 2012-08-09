@@ -44,7 +44,7 @@
 
 #pragma mark - before / after open
 
-- (BOOL)willOpenViewControllerWithURL:(NSURL *)aUrl
+- (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl
 {
     return YES;
 }

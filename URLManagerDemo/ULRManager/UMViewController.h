@@ -17,7 +17,7 @@
 - (id)initWithURL:(NSURL *)aUrl;
 - (id)initWithURL:(NSURL *)aUrl query:(NSDictionary *)query;
 
-- (BOOL)willOpenViewControllerWithURL:(NSURL *)aUrl;
+- (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl;
 - (void)openedFromViewControllerWithURL:(NSURL *)aUrl;
 
 @property (strong, nonatomic) NSURL                 *umUrl;

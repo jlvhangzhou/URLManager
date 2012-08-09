@@ -41,7 +41,7 @@
     [self.view addSubview:btnB];
 }
 
-- (BOOL)willOpenViewControllerWithURL:(NSURL *)aUrl
+- (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl
 {
     NSLog(@"Will Open:%@", aUrl.absoluteString);
     return YES;
