@@ -30,6 +30,7 @@
 
     [self.navigator setViewControllerName:@"UMgrDemoViewController" forURL:@"um://demo"];
     [self.navigator setViewControllerName:@"UMgrDemoBViewController" forURL:@"um://demob"];
+    [self.navigator setViewControllerName:@"UMgrDemoWebViewController" forURL:@"um://demoweb"];
 
     [self.window addSubview:self.navigator.view];
     

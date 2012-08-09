@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D711C5E615D281130073D69A /* UMTools.m in Sources */ = {isa = PBXBuildFile; fileRef = D711C5E515D281130073D69A /* UMTools.m */; };
+		D7171D9715D3C2C30035B930 /* UMgrDemoWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7171D9615D3C2C30035B930 /* UMgrDemoWebViewController.m */; };
 		D719158A15CBCCFB007B0D3C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D719158915CBCCFB007B0D3C /* UIKit.framework */; };
 		D719158C15CBCCFB007B0D3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D719158B15CBCCFB007B0D3C /* Foundation.framework */; };
 		D719158E15CBCCFB007B0D3C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D719158D15CBCCFB007B0D3C /* CoreGraphics.framework */; };
@@ -23,6 +24,8 @@
 /* Begin PBXFileReference section */
 		D711C5E415D281130073D69A /* UMTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMTools.h; sourceTree = "<group>"; };
 		D711C5E515D281130073D69A /* UMTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMTools.m; sourceTree = "<group>"; };
+		D7171D9515D3C2C30035B930 /* UMgrDemoWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMgrDemoWebViewController.h; sourceTree = "<group>"; };
+		D7171D9615D3C2C30035B930 /* UMgrDemoWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMgrDemoWebViewController.m; sourceTree = "<group>"; };
 		D719158515CBCCFB007B0D3C /* URLManagerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = URLManagerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D719158915CBCCFB007B0D3C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D719158B15CBCCFB007B0D3C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -91,6 +94,8 @@
 				D7A327F315CFB6B600742DAD /* UMgrDemoViewController.m */,
 				D7F6A7A015D119B5000DC4BE /* UMgrDemoBViewController.h */,
 				D7F6A7A115D119B5000DC4BE /* UMgrDemoBViewController.m */,
+				D7171D9515D3C2C30035B930 /* UMgrDemoWebViewController.h */,
+				D7171D9615D3C2C30035B930 /* UMgrDemoWebViewController.m */,
 				D719159815CBCCFB007B0D3C /* UMgrAppDelegate.h */,
 				D719159915CBCCFB007B0D3C /* UMgrAppDelegate.m */,
 				D719159015CBCCFB007B0D3C /* Supporting Files */,
@@ -193,6 +198,7 @@
 				D7A3280315CFB8FC00742DAD /* UMNavigator.m in Sources */,
 				D7F6A7A215D119B5000DC4BE /* UMgrDemoBViewController.m in Sources */,
 				D711C5E615D281130073D69A /* UMTools.m in Sources */,
+				D7171D9715D3C2C30035B930 /* UMgrDemoWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

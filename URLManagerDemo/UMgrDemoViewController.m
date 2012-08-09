@@ -53,6 +53,13 @@
     [btnB setTitle:@"um://demob/?a=b with query" forState:UIControlStateNormal];
     [btnB addTarget:self action:@selector(gotoDemoBWithQuery) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnB];
+    
+    UIButton *btnWeb = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btnWeb.frame = CGRectMake(10.0f, 114.0f, 300.0f, 44.0f);
+    [btnWeb setTitle:@"um://demoweb" forState:UIControlStateNormal];
+    [btnWeb addTarget:self action:@selector(gotoDemoWeb) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnWeb];
+
 }
 
 - (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl
@@ -70,22 +77,16 @@
                                         nil]]];
 }
 
+- (void)gotoDemoWeb
+{
+    [self.navigator openURL:[NSURL URLWithString:@"um://demoweb"]];
+}
+
 - (void)gotoDemoBWithQuery
 {
     [self.navigator openURL:[NSURL URLWithString:@"um://demob/?a=b"]
                   withQuery:[NSDictionary dictionaryWithObjectsAndKeys:
                              [NSArray arrayWithObjects:@"1", @"2", nil], @"q_key", nil]];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 - (BOOL)shouldSlideToRight
