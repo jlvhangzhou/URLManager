@@ -7,15 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D711C5E615D281130073D69A /* UMTools.m in Sources */ = {isa = PBXBuildFile; fileRef = D711C5E515D281130073D69A /* UMTools.m */; };
 		D719158A15CBCCFB007B0D3C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D719158915CBCCFB007B0D3C /* UIKit.framework */; };
 		D719158C15CBCCFB007B0D3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D719158B15CBCCFB007B0D3C /* Foundation.framework */; };
 		D719158E15CBCCFB007B0D3C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D719158D15CBCCFB007B0D3C /* CoreGraphics.framework */; };
 		D719159415CBCCFB007B0D3C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D719159215CBCCFB007B0D3C /* InfoPlist.strings */; };
 		D719159615CBCCFB007B0D3C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D719159515CBCCFB007B0D3C /* main.m */; };
 		D719159A15CBCCFB007B0D3C /* UMgrAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D719159915CBCCFB007B0D3C /* UMgrAppDelegate.m */; };
+		D7A327F115CFB64E00742DAD /* UMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A327F015CFB64E00742DAD /* UMViewController.m */; };
+		D7A327F415CFB6B600742DAD /* UMgrDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A327F315CFB6B600742DAD /* UMgrDemoViewController.m */; };
+		D7A3280315CFB8FC00742DAD /* UMNavigator.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A3280215CFB8FC00742DAD /* UMNavigator.m */; };
+		D7F6A7A215D119B5000DC4BE /* UMgrDemoBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F6A7A115D119B5000DC4BE /* UMgrDemoBViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D711C5E415D281130073D69A /* UMTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMTools.h; sourceTree = "<group>"; };
+		D711C5E515D281130073D69A /* UMTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMTools.m; sourceTree = "<group>"; };
 		D719158515CBCCFB007B0D3C /* URLManagerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = URLManagerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D719158915CBCCFB007B0D3C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D719158B15CBCCFB007B0D3C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -26,6 +33,14 @@
 		D719159715CBCCFB007B0D3C /* URLManagerDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "URLManagerDemo-Prefix.pch"; sourceTree = "<group>"; };
 		D719159815CBCCFB007B0D3C /* UMgrAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UMgrAppDelegate.h; sourceTree = "<group>"; };
 		D719159915CBCCFB007B0D3C /* UMgrAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UMgrAppDelegate.m; sourceTree = "<group>"; };
+		D7A327EF15CFB64E00742DAD /* UMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMViewController.h; sourceTree = "<group>"; };
+		D7A327F015CFB64E00742DAD /* UMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMViewController.m; sourceTree = "<group>"; };
+		D7A327F215CFB6B600742DAD /* UMgrDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMgrDemoViewController.h; sourceTree = "<group>"; };
+		D7A327F315CFB6B600742DAD /* UMgrDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMgrDemoViewController.m; sourceTree = "<group>"; };
+		D7A3280115CFB8FC00742DAD /* UMNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMNavigator.h; sourceTree = "<group>"; };
+		D7A3280215CFB8FC00742DAD /* UMNavigator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMNavigator.m; sourceTree = "<group>"; };
+		D7F6A7A015D119B5000DC4BE /* UMgrDemoBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMgrDemoBViewController.h; sourceTree = "<group>"; };
+		D7F6A7A115D119B5000DC4BE /* UMgrDemoBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMgrDemoBViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +87,10 @@
 		D719158F15CBCCFB007B0D3C /* URLManagerDemo */ = {
 			isa = PBXGroup;
 			children = (
+				D7A327F215CFB6B600742DAD /* UMgrDemoViewController.h */,
+				D7A327F315CFB6B600742DAD /* UMgrDemoViewController.m */,
+				D7F6A7A015D119B5000DC4BE /* UMgrDemoBViewController.h */,
+				D7F6A7A115D119B5000DC4BE /* UMgrDemoBViewController.m */,
 				D719159815CBCCFB007B0D3C /* UMgrAppDelegate.h */,
 				D719159915CBCCFB007B0D3C /* UMgrAppDelegate.m */,
 				D719159015CBCCFB007B0D3C /* Supporting Files */,
@@ -82,12 +101,26 @@
 		D719159015CBCCFB007B0D3C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D7A327ED15CFB61200742DAD /* ULRManager */,
 				D719159115CBCCFB007B0D3C /* URLManagerDemo-Info.plist */,
 				D719159215CBCCFB007B0D3C /* InfoPlist.strings */,
 				D719159515CBCCFB007B0D3C /* main.m */,
 				D719159715CBCCFB007B0D3C /* URLManagerDemo-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D7A327ED15CFB61200742DAD /* ULRManager */ = {
+			isa = PBXGroup;
+			children = (
+				D7A327EF15CFB64E00742DAD /* UMViewController.h */,
+				D7A327F015CFB64E00742DAD /* UMViewController.m */,
+				D7A3280115CFB8FC00742DAD /* UMNavigator.h */,
+				D7A3280215CFB8FC00742DAD /* UMNavigator.m */,
+				D711C5E415D281130073D69A /* UMTools.h */,
+				D711C5E515D281130073D69A /* UMTools.m */,
+			);
+			path = ULRManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,6 +188,11 @@
 			files = (
 				D719159615CBCCFB007B0D3C /* main.m in Sources */,
 				D719159A15CBCCFB007B0D3C /* UMgrAppDelegate.m in Sources */,
+				D7A327F115CFB64E00742DAD /* UMViewController.m in Sources */,
+				D7A327F415CFB6B600742DAD /* UMgrDemoViewController.m in Sources */,
+				D7A3280315CFB8FC00742DAD /* UMNavigator.m in Sources */,
+				D7F6A7A215D119B5000DC4BE /* UMgrDemoBViewController.m in Sources */,
+				D711C5E615D281130073D69A /* UMTools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +300,7 @@
 				D719159F15CBCCFB007B0D3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

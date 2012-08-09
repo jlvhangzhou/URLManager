@@ -7,8 +7,14 @@
 //
 
 #import "UMgrAppDelegate.h"
+#import "UMgrDemoViewController.h"
+#import "UMNavigator.h"
 
 @implementation UMgrAppDelegate
+
+@synthesize window              = _window;
+@synthesize viewController      = _viewController;
+@synthesize navigator           = _navigator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -16,6 +22,18 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    self.viewController = [[UMgrDemoViewController alloc] init];
+    self.navigator = [[UMNavigator alloc] initWithRootViewController:self.viewController];
+    self.navigator.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
+
+    [self.navigator setViewControllerName:@"UMgrDemoViewController" forURL:@"um://demo"];
+    [self.navigator setViewControllerName:@"UMgrDemoBViewController" forURL:@"um://demob"];
+
+    self.viewController.navigator = self.navigator;
+    
+    [self.window addSubview:self.navigator.view];
+    
     return YES;
 }
 
