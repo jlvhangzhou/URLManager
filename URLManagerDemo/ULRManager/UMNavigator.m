@@ -60,7 +60,7 @@
     UMViewController *viewController = [self viewControllerForURL:url withQuery:nil];
     if ([lastViewController shouldOpenViewControllerWithURL:url]) {
         [self pushViewController:viewController animated:YES];
-        [viewController openedFromViewControllerWithURL:lastViewController.umUrl];
+        [viewController openedFromViewControllerWithURL:lastViewController.url];
     }
 }
 
@@ -71,7 +71,7 @@
     UMViewController *viewController = [self viewControllerForURL:url withQuery:query];
     if ([lastViewController shouldOpenViewControllerWithURL:url]) {
         [self pushViewController:viewController animated:YES];
-        [viewController openedFromViewControllerWithURL:lastViewController.umUrl];
+        [viewController openedFromViewControllerWithURL:lastViewController.url];
     }
 }
 

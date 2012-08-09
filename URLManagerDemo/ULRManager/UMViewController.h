@@ -11,7 +11,8 @@
 #import "UMTools.h"
 
 @interface UMViewController : UIViewController {
-    NSString           *url;
+    NSString            *url;
+    CGPoint             startPoint;
 }
 
 - (id)initWithURL:(NSURL *)aUrl;
@@ -20,7 +21,10 @@
 - (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl;
 - (void)openedFromViewControllerWithURL:(NSURL *)aUrl;
 
-@property (strong, nonatomic) NSURL                 *umUrl;
+- (BOOL)shouldSlideToRight;
+- (BOOL)shouldSlideToLeft;
+
+@property (strong, nonatomic) NSURL                 *url;
 @property (strong, nonatomic) UMNavigator           *navigator;
 
 @property (strong, nonatomic) NSDictionary          *params;

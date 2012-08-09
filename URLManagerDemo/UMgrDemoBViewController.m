@@ -18,7 +18,7 @@
 {
     self = [super initWithURL:aUrl];
     if (self) {
-        NSLog(@"URL:%@", self.umUrl.absoluteString);
+        NSLog(@"URL:%@", self.url.absoluteString);
         NSLog(@"PARAMS:%@", self.params);
     }
     return self;
@@ -28,7 +28,7 @@
 {
     self = [super initWithURL:aUrl query:query];
     if (self) {
-        NSLog(@"URL:%@", self.umUrl.absoluteString);
+        NSLog(@"URL:%@", self.url.absoluteString);
         NSLog(@"PARAMS:%@", self.params);
         NSLog(@"QUERY:%@", self.query);
     }

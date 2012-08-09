@@ -40,6 +40,8 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btn.frame = CGRectMake(10.0f, 10.0f, 300.0f, 44.0f);
     [btn setTitle:@"um://demob/path/aaa/?a=b&c=d" forState:UIControlStateNormal];
@@ -84,6 +86,16 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (BOOL)shouldSlideToRight
+{
+    return YES;
+}
+
+- (BOOL)shouldSlideToLeft
+{
+    return YES;
 }
 
 @end
