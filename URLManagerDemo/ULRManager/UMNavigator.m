@@ -36,17 +36,19 @@
 - (UMViewController *)viewControllerForURL:(NSURL *)url withQuery:(NSDictionary *)query
 {
     NSString *urlString = [NSString stringWithFormat:@"%@://%@", [url scheme], [url host]];
-    Class class = NSClassFromString([self.config objectForKey:urlString]);
-    
     UMViewController * viewController = nil;
-    
-    if (nil == query) {
-        viewController = (UMViewController *)[[class alloc] initWithURL:url];
+
+    if ([[self.config allKeys] containsObject:urlString]) {
+        Class class = NSClassFromString([self.config objectForKey:urlString]);
+        
+        if (nil == query) {
+            viewController = (UMViewController *)[[class alloc] initWithURL:url];
+        }
+        else {
+            viewController = (UMViewController *)[[class alloc] initWithURL:url query:query];
+        }
+        viewController.navigator = self;
     }
-    else {
-        viewController = (UMViewController *)[[class alloc] initWithURL:url query:query];
-    }
-    viewController.navigator = self;
     
     return viewController;
 }

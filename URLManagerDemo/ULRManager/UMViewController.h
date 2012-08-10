@@ -12,7 +12,10 @@
 
 @interface UMViewController : UIViewController {
     NSString            *url;
-    CGPoint             startPoint;
+    CGPoint             center;
+    
+    UMViewController    *leftViewController;
+    UMViewController    *rightViewController;
 }
 
 - (id)initWithURL:(NSURL *)aUrl;
@@ -21,8 +24,11 @@
 - (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl;
 - (void)openedFromViewControllerWithURL:(NSURL *)aUrl;
 
-- (BOOL)shouldSlideToRight;
-- (BOOL)shouldSlideToLeft;
+- (NSURL *)leftViewControllerURL;
+- (NSURL *)rightViewControllerURL;
+
+- (CGFloat)leftViewWidth;
+- (CGFloat)rightViewWidth;
 
 @property (strong, nonatomic) NSURL                 *url;
 @property (strong, nonatomic) UMNavigator           *navigator;

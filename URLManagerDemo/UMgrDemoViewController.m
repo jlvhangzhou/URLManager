@@ -89,14 +89,18 @@
                              [NSArray arrayWithObjects:@"1", @"2", nil], @"q_key", nil]];
 }
 
-- (BOOL)shouldSlideToRight
+- (NSURL *)leftViewControllerURL
 {
-    return YES;
+    return [NSURL URLWithString:@"um://demob"];
 }
 
-- (BOOL)shouldSlideToLeft
+- (NSURL *)rightViewControllerURL
 {
-    return YES;
+    return [NSURL URLWithString:@"um://demoweb"];
+}
+
+- (CGFloat)rightViewWidth {
+    return 200.0f;
 }
 
 @end
