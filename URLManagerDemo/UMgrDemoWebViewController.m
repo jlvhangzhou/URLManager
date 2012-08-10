@@ -29,6 +29,17 @@
     [self.webView loadHTMLString:@"<p><a href=\"um://demob/p/?k=v&kb=vb\">um://demob/p/?k=v&kb=vb<a/></p>" baseURL:nil];
 }
 
+- (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl
+{
+    NSLog(@"Will Open:%@", aUrl.absoluteString);
+    return YES;
+}
+
+- (void)openedFromViewControllerWithURL:(NSURL *)aUrl
+{
+    NSLog(@"Opened From:%@", aUrl.absoluteString);
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     if ([@"um" isEqualToString:request.URL.scheme]) {

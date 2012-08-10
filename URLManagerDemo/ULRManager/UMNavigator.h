@@ -17,6 +17,8 @@
 
 - (UMViewController *)viewControllerForURL:(NSURL *)url withQuery:(NSDictionary *)query;
 
+- (BOOL)URLAvailable:(NSURL *)url;
+
 - (void)setViewControllerName:(NSString *)className forURL:(NSString *)url;
 
 @property (strong, nonatomic) NSMutableDictionary               *config;

@@ -43,6 +43,12 @@
 	// Do any additional setup after loading the view.
 }
 
+- (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl
+{
+    NSLog(@"Will Open:%@", aUrl.absoluteString);
+    return YES;
+}
+
 - (void)openedFromViewControllerWithURL:(NSURL *)aUrl
 {
     NSLog(@"Opened From:%@", aUrl.absoluteString);

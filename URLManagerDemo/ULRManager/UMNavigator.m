@@ -38,7 +38,7 @@
     NSString *urlString = [NSString stringWithFormat:@"%@://%@", [url scheme], [url host]];
     UMViewController * viewController = nil;
 
-    if ([[self.config allKeys] containsObject:urlString]) {
+    if ([self URLAvailable:url]) {
         Class class = NSClassFromString([self.config objectForKey:urlString]);
         
         if (nil == query) {
@@ -51,6 +51,12 @@
     }
     
     return viewController;
+}
+
+- (BOOL)URLAvailable:(NSURL *)url
+{
+    NSString *urlString = [NSString stringWithFormat:@"%@://%@", [url scheme], [url host]];
+    return [[self.config allKeys] containsObject:urlString];
 }
 
 - (void)openURL:(NSURL *)url

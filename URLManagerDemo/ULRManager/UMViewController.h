@@ -16,6 +16,9 @@
     
     UMViewController    *leftViewController;
     UMViewController    *rightViewController;
+    
+    BOOL                leftAvailable;
+    BOOL                rightAvailable;
 }
 
 - (id)initWithURL:(NSURL *)aUrl;

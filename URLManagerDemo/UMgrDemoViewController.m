@@ -68,6 +68,11 @@
     return YES;
 }
 
+- (void)openedFromViewControllerWithURL:(NSURL *)aUrl
+{
+    NSLog(@"Opened From:%@", aUrl.absoluteString);
+}
+
 - (void)gotoDemoB
 {
     [self.navigator openURL:[[NSURL URLWithString:@"um://demob/path/aaa"]
