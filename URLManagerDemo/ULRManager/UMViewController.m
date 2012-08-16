@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 jiajun. All rights reserved.
 //
 
+#define DEFAULT_SLIDE_VC_WIDTH      320.0f - 44.0f
+
 #import "UMViewController.h"
 #import "UMTools.h"
 
@@ -13,6 +15,9 @@
 
 - (void)addPanRecognizer;
 - (void)slidePanAction:(UIPanGestureRecognizer *)recognizer;
+
+- (void)addShadow;
+- (void)initialStatus;
 
 @property (strong, nonatomic) UIPanGestureRecognizer        *panRecognizer;
 @property (assign, nonatomic) CGPoint                       center;
@@ -22,6 +27,12 @@
 
 @property (assign, nonatomic) BOOL                          leftAvailable;
 @property (assign, nonatomic) BOOL                          rightAvailable;
+
+@property (assign, nonatomic) CGFloat                       leftWidth;
+@property (assign, nonatomic) CGFloat                       rightWidth;
+
+@property (strong, nonatomic) NSURL                         *leftURL;
+@property (strong, nonatomic) NSURL                         *rightURL;
 
 @end
 
@@ -40,6 +51,14 @@
 
 @synthesize leftAvailable           = _leftAvailable;
 @synthesize rightAvailable          = _rightAvailable;
+
+@synthesize slideDelegate           = _slideDelegate;
+
+@synthesize leftWidth               = _leftWidth;
+@synthesize rightWidth              = _rightWidth;
+
+@synthesize leftURL                 = _leftURL;
+@synthesize rightURL                = _rightURL;
 
 #pragma mark - init
 
@@ -67,10 +86,21 @@
 {
     [super viewDidLoad];
     
-    if ([self.navigator URLAvailable:[self leftViewControllerURL]]
-        || [self.navigator URLAvailable:[self rightViewControllerURL]]) {
-        [self addPanRecognizer];
+    if ([self.slideDelegate respondsToSelector:@selector(leftViewControllerURL)]
+        && [self.navigator URLAvailable:[self.slideDelegate leftViewControllerURL]]) {
+        self.leftURL = [self.slideDelegate leftViewControllerURL];
     }
+    if ([self.slideDelegate respondsToSelector:@selector(rightViewControllerURL)]
+        && [self.navigator URLAvailable:[self.slideDelegate rightViewControllerURL]]) {
+        self.rightURL = [self.slideDelegate rightViewControllerURL];
+    }
+    [self addPanRecognizer];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self initialStatus];
 }
 
 #pragma mark - before / after open
@@ -84,36 +114,15 @@
 {
 }
 
-#pragma mark - slide or not
-
-- (UMViewController *)leftViewControllerURL
-{
-    return nil;
-}
-
-- (UMViewController *)rightViewControllerURL
-{
-    return nil;
-}
-
-- (CGFloat)leftViewWidth
-{
-    // Max width the view slide to right.
-    return self.view.width - 44.0f;
-}
-- (CGFloat)rightViewWidth
-{
-    // Max width the view slide to left.
-    return self.view.width - 44.0f;
-}
-
 #pragma mark - pan recognizer
 
 - (void)addPanRecognizer
 {
-    self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(slidePanAction:)];
-    [self.view addGestureRecognizer:self.panRecognizer];
-    self.center = self.view.center;
+    if (self.leftURL || self.rightURL) {
+        self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(slidePanAction:)];
+        [self.view addGestureRecognizer:self.panRecognizer];
+        self.center = self.view.center;
+    }
 }
 
 - (void)slidePanAction:(UIPanGestureRecognizer *)recognizer
@@ -122,56 +131,73 @@
     CGPoint velocity = [recognizer velocityInView:self.view];
 
     CGFloat offset = self.view.width / 2;
-    CGFloat left = self.view.width - [self rightViewWidth];
-    CGFloat right = self.view.width - [self leftViewWidth];
+    self.leftWidth = (self.slideDelegate && [self.slideDelegate respondsToSelector:@selector(leftViewWidth)])
+    ? [self.slideDelegate leftViewWidth]
+    : DEFAULT_SLIDE_VC_WIDTH;
+    self.rightWidth = (self.slideDelegate && [self.slideDelegate respondsToSelector:@selector(rightViewWidth)])
+    ? [self.slideDelegate rightViewWidth]
+    : DEFAULT_SLIDE_VC_WIDTH;
+
+    CGFloat left = self.view.width - self.rightWidth;
+    CGFloat right = self.view.width - self.leftWidth;
 
     if(recognizer.state == UIGestureRecognizerStateEnded) { // end slide.
         [UIView beginAnimations:[NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]] context:NULL];
+        
+        CGFloat animationDuration = 0.0f;
 
         if (0 < velocity.x) { // left to right.
             if (self.leftAvailable &&
-                (([self leftViewWidth] / 3 + offset < self.center.x + translation.x)
+                ((self.leftWidth / 3 + offset < self.center.x + translation.x)
                  || (500.0f < velocity.x && offset < self.center.x + translation.x))) { // center to right, more than 1/3 left view width.
-                    [UIView setAnimationDuration:0.5f * translation.x / [self leftViewWidth]];
+                    animationDuration = 0.5f * translation.x / self.leftWidth;
+                    [UIView setAnimationDuration:animationDuration];
                     self.view.left = self.view.width - right;
-                    [self.leftViewController openedFromViewControllerWithURL:self.url];
+                    if (self.center.x == offset) {
+                        [self.leftViewController openedFromViewControllerWithURL:self.url];
+                    }
             }
-            else if (500.0f >= velocity.x && offset - 2 * [self rightViewWidth] / 3 > self.center.x + translation.x) { // left to center, less than 1/3 right view width.
-                [UIView setAnimationDuration:0.5f * translation.x / [self rightViewWidth]];
+            else if (500.0f >= velocity.x && offset - 2 * self.rightWidth / 3 > self.center.x + translation.x) { // left to center, less than 1/3 right view width.
+                animationDuration = 0.5f * translation.x / self.rightWidth;
+                [UIView setAnimationDuration:animationDuration];
                 self.view.right = left;
             }
             else { // left to center, more than 1/3 right view width, center to right, less than 1/3 left view width.
-                [UIView setAnimationDuration:0.5f * translation.x / [self rightViewWidth]];
-                self.view.centerX = offset;
-                if (self.rightAvailable) {
+                animationDuration = 0.5f * translation.x / self.rightWidth;
+                [UIView setAnimationDuration:animationDuration];
+                
+                if (self.rightAvailable && offset != self.center.x) {
                     [self openedFromViewControllerWithURL:self.rightViewController.url];
                 }
-                [self.leftViewController.view performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.5f];
-                [self.rightViewController.view performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.5f];
+                self.view.centerX = offset;
                 self.leftAvailable = NO;
                 self.rightAvailable = NO;
             }
         }
         else { // right to left.
             if (self.rightAvailable &&
-                ((offset - [self rightViewWidth] / 3 > self.center.x + translation.x)
+                ((offset - self.rightWidth / 3 > self.center.x + translation.x)
                 || (-500.0f > velocity.x && offset > self.center.x + translation.x))) { // center to left, more than 1/3 right view width.
-                    [UIView setAnimationDuration:0.5f * translation.x / [self rightViewWidth]];
+                    animationDuration = 0.5f * translation.x / self.rightWidth;
+                    [UIView setAnimationDuration:animationDuration];
                     self.view.right = left;
-                    [self.rightViewController openedFromViewControllerWithURL:self.url];
+                    if (self.center.x == offset) {
+                        [self.rightViewController openedFromViewControllerWithURL:self.url];
+                    }
             }
-            else if (-500.0f <= velocity.x && offset + 2 * [self leftViewWidth] / 3 < self.center.x + translation.x) { // right to center, less than 1/3 left view width.
-                [UIView setAnimationDuration:0.5f * translation.x / [self leftViewWidth]];
+            else if (-500.0f <= velocity.x && offset + 2 * self.leftWidth / 3 < self.center.x + translation.x) { // right to center, less than 1/3 left view width.
+                animationDuration = 0.5f * translation.x / self.leftWidth;
+                [UIView setAnimationDuration:animationDuration];
                 self.view.left = self.view.width - right;
             }
             else { // center to left, less than 1/3 right view width, right to center, more than 1/3 left view width.
-                [UIView setAnimationDuration:0.5f * translation.x / [self leftViewWidth]];
-                self.view.centerX = offset;
-                if (self.leftAvailable) {
+                animationDuration = 0.5f * translation.x / self.leftWidth;
+                [UIView setAnimationDuration:animationDuration];
+
+                if (self.leftAvailable && offset != self.center.x) {
                     [self openedFromViewControllerWithURL:self.leftViewController.url];
                 }
-                [self.leftViewController.view performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.5f];
-                [self.rightViewController.view performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.5f];
+                self.view.centerX = offset;
                 self.leftAvailable = NO;
                 self.rightAvailable = NO;
             }
@@ -182,50 +208,74 @@
         self.center = self.view.center;
     }
     else if(recognizer.state == UIGestureRecognizerStateChanged) { // sliding.
-        if (offset <= self.view.center.x && 0 < velocity.x) {
+        UIView *transitionView = self.view.superview;
+        if (offset <= self.view.centerX && 0 < velocity.x) {
             if (! (self.leftAvailable || self.rightAvailable)) {
-                if ([self shouldOpenViewControllerWithURL:[self leftViewControllerURL]]) {
+                if ([self shouldOpenViewControllerWithURL:self.leftURL]) {
                     self.leftAvailable = YES;
                     self.rightAvailable = NO;
+                    
+                    [self addShadow];
+                    if ([self.slideDelegate respondsToSelector:@selector(willOpenLeftViewController)]) {
+                        [self.slideDelegate willOpenLeftViewController];
+                    }
+                    [self.leftViewController.view removeFromSuperview];
+                    [self.leftViewController removeFromParentViewController];
+                    self.leftViewController = nil;
+                    [self.rightViewController.view removeFromSuperview];
+                    [self.rightViewController removeFromParentViewController];
+                    self.rightViewController = nil;
 
-                    if (nil == self.leftViewController) {
-                        self.leftViewController = [self.navigator viewControllerForURL:[self leftViewControllerURL] withQuery:nil];
-                    }
-                    if (! [self.navigator.view.subviews containsObject:self.leftViewController.view]) {
-                        [self.navigator.view insertSubview:self.leftViewController.view belowSubview:self.view];
-                        [self.navigator.view sendSubviewToBack:self.leftViewController.view];
-                    }
+                    self.leftViewController = [self.navigator viewControllerForURL:self.leftURL
+                                                                         withQuery:nil];
+                    [transitionView insertSubview:self.leftViewController.view
+                                    belowSubview:self.view];
+                    [transitionView sendSubviewToBack:self.leftViewController.view];
+                    self.leftViewController.view.frame = CGRectMake(0.0f, 0.0f,
+                                                                    self.leftViewController.view.frame.size.width,
+                                                                    self.leftViewController.view.frame.size.height);
                 }
             }
         }
-        else if (offset - [self rightViewWidth] == self.view.center.x && 0 < velocity.x) {
+        else if (offset - self.rightWidth >= self.view.centerX && 0 < velocity.x) {
             if ([self.rightViewController shouldOpenViewControllerWithURL:self.url]) {
                 ;;
             }
         }
-        else if (offset >= self.view.center.x && 0 > velocity.x) {
+        else if (offset >= self.view.centerX && 0 > velocity.x) {
             if (! (self.leftAvailable || self.rightAvailable)) {
-                if ([self shouldOpenViewControllerWithURL:[self rightViewControllerURL]]) {
+                if ([self shouldOpenViewControllerWithURL:self.rightURL]) {
                     self.leftAvailable = NO;
                     self.rightAvailable = YES;
                     
-                    if (nil == self.rightViewController) {
-                        self.rightViewController = [self.navigator viewControllerForURL:[self rightViewControllerURL] withQuery:nil];
+                    [self addShadow];
+                    if ([self.slideDelegate respondsToSelector:@selector(willOpenRightViewController)]) {
+                        [self.slideDelegate willOpenRightViewController];
                     }
-                    if (! [self.navigator.view.subviews containsObject:self.rightViewController.view]) {
-                        [self.navigator.view insertSubview:self.rightViewController.view belowSubview:self.view];
-                        [self.navigator.view sendSubviewToBack:self.rightViewController.view];
-                    }
+                    [self.leftViewController.view removeFromSuperview];
+                    [self.leftViewController removeFromParentViewController];
+                    self.leftViewController = nil;
+                    [self.rightViewController.view removeFromSuperview];
+                    [self.rightViewController removeFromParentViewController];
+                    self.rightViewController = nil;
+
+                    self.rightViewController = [self.navigator viewControllerForURL:self.rightURL
+                                                                          withQuery:nil];
+                    [transitionView insertSubview:self.rightViewController.view
+                                    belowSubview:self.view];
+                    [transitionView sendSubviewToBack:self.rightViewController.view];
+                    self.rightViewController.view.frame = CGRectMake(0.0f, 0.0f,
+                                                                    self.rightViewController.view.frame.size.width,
+                                                                    self.rightViewController.view.frame.size.height);
                 }
             }
         }
-        else if (offset + [self leftViewWidth] == self.view.center.x && 0 > velocity.x) {
+        else if (offset + self.leftWidth <= self.view.centerX && 0 > velocity.x) {
             if ([self.leftViewController shouldOpenViewControllerWithURL:self.url]) {
                 ;;
             }
         }
-        
-        
+
         if (self.leftAvailable) { // left view only.
             if (offset > self.center.x + translation.x) {
                 self.view.left = 0.0f;
@@ -251,6 +301,35 @@
             }
         }
     }
+}
+
+#pragma mark - self view
+
+- (void)addShadow
+{
+    if (self.leftAvailable) {
+        self.view.layer.shadowOffset = CGSizeMake(-2.0f, 0.0f);
+    }
+    else {
+        self.view.layer.shadowOffset = CGSizeMake(2.0f, 0.0f);
+    }
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.view.layer.shadowOpacity = 0.3f;
+    self.view.layer.shadowRadius = 10.0f;
+}
+
+- (void)initialStatus {
+    [UIView beginAnimations:[NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]] context:NULL];
+    [UIView setAnimationDuration:0.5f];
+
+    self.view.left = 0;
+
+    [UIView commitAnimations];
+
+    self.center = self.view.center;
+    
+    self.leftAvailable = NO;
+    self.rightAvailable = NO;
 }
 
 @end

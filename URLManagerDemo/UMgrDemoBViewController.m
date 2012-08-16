@@ -38,9 +38,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor blackColor];
-	// Do any additional setup after loading the view.
+    NSLog(@"Demo B View Did Load.");
+    self.view.backgroundColor = [UIColor whiteColor];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0f, 10.0f, 300.0f, 20.0f)];
+    label.text = @"This is DemoBViewController.";
+    [self.view addSubview:label];
 }
 
 - (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl

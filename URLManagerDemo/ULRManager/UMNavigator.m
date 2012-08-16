@@ -61,18 +61,11 @@
 
 - (void)openURL:(NSURL *)url
 {
-    NSLog(@"open: %@", url.absoluteString);
-    UMViewController *lastViewController = (UMViewController *)[self.viewControllers lastObject];
-    UMViewController *viewController = [self viewControllerForURL:url withQuery:nil];
-    if ([lastViewController shouldOpenViewControllerWithURL:url]) {
-        [self pushViewController:viewController animated:YES];
-        [viewController openedFromViewControllerWithURL:lastViewController.url];
-    }
+    [self openURL:url withQuery:nil];
 }
 
 - (void)openURL:(NSURL *)url withQuery:(NSDictionary *)query
 {
-    NSLog(@"open: %@", url.absoluteString);
     UMViewController *lastViewController = (UMViewController *)[self.viewControllers lastObject];
     UMViewController *viewController = [self viewControllerForURL:url withQuery:query];
     if ([lastViewController shouldOpenViewControllerWithURL:url]) {

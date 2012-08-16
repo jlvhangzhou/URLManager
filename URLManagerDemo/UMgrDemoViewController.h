@@ -8,6 +8,6 @@
 
 #import "UMViewController.h"
 
-@interface UMgrDemoViewController : UMViewController
+@interface UMgrDemoViewController : UMViewController <UMSlideDelegate>
 
 @end

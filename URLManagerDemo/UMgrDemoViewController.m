@@ -15,11 +15,11 @@
 
 @implementation UMgrDemoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithURL:(NSURL *)aUrl
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithURL:aUrl];
     if (self) {
-        // Custom initialization
+        self.slideDelegate = self;
     }
     return self;
 }
@@ -106,6 +106,11 @@
 
 - (CGFloat)rightViewWidth {
     return 200.0f;
+}
+
+- (void)willOpenLeftViewController
+{
+    NSLog(@"will open left view controller.");
 }
 
 @end

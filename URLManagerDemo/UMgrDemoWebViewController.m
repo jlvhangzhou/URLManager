@@ -26,7 +26,7 @@
         [self.view addSubview:self.webView];
     }
     
-    [self.webView loadHTMLString:@"<p><a href=\"um://demob/p/?k=v&kb=vb\">um://demob/p/?k=v&kb=vb<a/></p>" baseURL:nil];
+    [self.webView loadHTMLString:@"<p align=\"right\"><a href=\"um://demob/p/?k=v&kb=vb\">um://demob/p/?k=v&kb=vb<a/></p>" baseURL:nil];
 }
 
 - (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl
