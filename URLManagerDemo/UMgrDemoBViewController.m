@@ -56,14 +56,9 @@
     NSLog(@"Opened From:%@", aUrl.absoluteString);
 
     if ([aUrl.host isEqualToString:@"demo"]) {
-        [self back];
+        [self performSelector:@selector(backToInitialStatus) withObject:nil afterDelay:3.0f];
     }
 
-}
-
-- (void)back
-{
-    [self.lastViewController performSelector:@selector(backToInitialStatus) withObject:nil afterDelay:3.0f];
 }
 
 @end

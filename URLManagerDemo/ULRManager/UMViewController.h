@@ -31,6 +31,7 @@
     
     UMViewController        *leftViewController;
     UMViewController        *rightViewController;
+    UMViewController        *lastViewController;
         
     BOOL                    leftAvailable;
     BOOL                    rightAvailable;
@@ -57,8 +58,6 @@
 
 @property (strong, nonatomic) NSDictionary          *params;
 @property (strong, nonatomic) NSDictionary          *query;
-
-@property (strong, nonatomic) UMViewController      *lastViewController;
 
 @property (assign, nonatomic) id<UMSlideDelegate>   slideDelegate;
 

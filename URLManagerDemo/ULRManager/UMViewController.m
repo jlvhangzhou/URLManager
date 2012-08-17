@@ -24,6 +24,7 @@
 
 @property (strong, nonatomic) UMViewController              *leftViewController;
 @property (strong, nonatomic) UMViewController              *rightViewController;
+@property (strong, nonatomic) UMViewController              *lastViewController;
 
 @property (assign, nonatomic) BOOL                          leftAvailable;
 @property (assign, nonatomic) BOOL                          rightAvailable;
@@ -107,8 +108,9 @@
 
 - (void)backToInitialStatus
 {
-    if (self.leftAvailable || self.rightAvailable) {
-        [self initialStatus];
+    if (self.lastViewController.leftAvailable
+        || self.lastViewController.rightAvailable) {
+        [self.lastViewController initialStatus];
     }
 }
 
