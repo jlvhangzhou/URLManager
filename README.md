@@ -62,7 +62,7 @@ ViewController的初始化方法变为
 
 ## 通过滑动打开ViewController
 
-继承自UMViewController的ViewController支持向Path首页一样的左右滑动，左右的View也通过单独ViewController控制，并用URL管理。
+继承自UMViewController的ViewController支持 Path 首页一样的左右滑动，左右的View也通过单独ViewController控制，并用URL管理。
 
 在ViewController中实现 UMSlideDelegate 的方法即可实现
 <pre>
