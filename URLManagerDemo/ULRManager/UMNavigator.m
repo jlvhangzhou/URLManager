@@ -69,6 +69,7 @@
     UMViewController *lastViewController = (UMViewController *)[self.viewControllers lastObject];
     UMViewController *viewController = [self viewControllerForURL:url withQuery:query];
     if ([lastViewController shouldOpenViewControllerWithURL:url]) {
+        viewController.lastViewController = lastViewController;
         [self pushViewController:viewController animated:YES];
         [viewController openedFromViewControllerWithURL:lastViewController.url];
     }

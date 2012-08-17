@@ -42,6 +42,8 @@
 @synthesize navigator               = _navigator;
 @synthesize params                  = _params;
 @synthesize query                   = _query;
+@synthesize lastViewController      = _lastViewController;
+@synthesize slideDelegate           = _slideDelegate;
 
 @synthesize center                  = _center;
 @synthesize panRecognizer           = _panRecognizer;
@@ -51,8 +53,6 @@
 
 @synthesize leftAvailable           = _leftAvailable;
 @synthesize rightAvailable          = _rightAvailable;
-
-@synthesize slideDelegate           = _slideDelegate;
 
 @synthesize leftWidth               = _leftWidth;
 @synthesize rightWidth              = _rightWidth;
@@ -103,6 +103,15 @@
     [self initialStatus];
 }
 
+#pragma mark - action
+
+- (void)backToInitialStatus
+{
+    if (self.leftAvailable || self.rightAvailable) {
+        [self initialStatus];
+    }
+}
+
 #pragma mark - before / after open
 
 - (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl
@@ -140,8 +149,94 @@
 
     CGFloat left = self.view.width - self.rightWidth;
     CGFloat right = self.view.width - self.leftWidth;
-
-    if(recognizer.state == UIGestureRecognizerStateEnded) { // end slide.
+    
+    if(recognizer.state == UIGestureRecognizerStateChanged) { // sliding.
+        UIView *transitionView = self.view.superview;
+        if (offset <= self.view.centerX && 0 < velocity.x) {
+            if (! (self.leftAvailable || self.rightAvailable)) {
+                if ([self shouldOpenViewControllerWithURL:self.leftURL]) {
+                    self.leftAvailable = YES;
+                    self.rightAvailable = NO;
+                    
+                    [self addShadow];
+                    if ([self.slideDelegate respondsToSelector:@selector(willOpenLeftViewController)]) {
+                        [self.slideDelegate willOpenLeftViewController];
+                    }
+                    [self.leftViewController.view removeFromSuperview];
+                    [self.leftViewController removeFromParentViewController];
+                    self.leftViewController = nil;
+                    [self.rightViewController.view removeFromSuperview];
+                    [self.rightViewController removeFromParentViewController];
+                    self.rightViewController = nil;
+                    
+                    self.leftViewController = [self.navigator viewControllerForURL:self.leftURL
+                                                                         withQuery:nil];
+                    self.leftViewController.lastViewController = self;
+                    [transitionView insertSubview:self.leftViewController.view
+                                     belowSubview:self.view];
+                    [transitionView sendSubviewToBack:self.leftViewController.view];
+                    self.leftViewController.view.frame = CGRectMake(0.0f, 0.0f,
+                                                                    self.leftViewController.view.frame.size.width,
+                                                                    self.leftViewController.view.frame.size.height);
+                }
+            }
+        }
+        else if (offset >= self.view.centerX && 0 > velocity.x) {
+            if (! (self.leftAvailable || self.rightAvailable)) {
+                if ([self shouldOpenViewControllerWithURL:self.rightURL]) {
+                    self.leftAvailable = NO;
+                    self.rightAvailable = YES;
+                    
+                    [self addShadow];
+                    if ([self.slideDelegate respondsToSelector:@selector(willOpenRightViewController)]) {
+                        [self.slideDelegate willOpenRightViewController];
+                    }
+                    [self.leftViewController.view removeFromSuperview];
+                    [self.leftViewController removeFromParentViewController];
+                    self.leftViewController = nil;
+                    [self.rightViewController.view removeFromSuperview];
+                    [self.rightViewController removeFromParentViewController];
+                    self.rightViewController = nil;
+                    
+                    self.rightViewController = [self.navigator viewControllerForURL:self.rightURL
+                                                                          withQuery:nil];
+                    self.rightViewController.lastViewController = self;
+                    [transitionView insertSubview:self.rightViewController.view
+                                     belowSubview:self.view];
+                    [transitionView sendSubviewToBack:self.rightViewController.view];
+                    self.rightViewController.view.frame = CGRectMake(0.0f, 0.0f,
+                                                                     self.rightViewController.view.frame.size.width,
+                                                                     self.rightViewController.view.frame.size.height);
+                }
+            }
+        }
+        
+        if (self.leftAvailable) { // left view only.
+            if (offset > self.center.x + translation.x) {
+                self.view.left = 0.0f;
+            }
+            else if (offset <= self.center.x + translation.x
+                     && self.view.width - right + offset >= self.center.x + translation.x) {
+                self.view.centerX = self.center.x + translation.x;
+            }
+            else {
+                self.view.left = self.view.width - right;
+            }
+        }
+        else if (self.rightAvailable) { // right view only.
+            if (self.view.width - offset <= self.center.x + translation.x) {
+                self.view.right = self.view.width;
+            }
+            else if (self.view.width - offset >= self.center.x + translation.x
+                     && left - offset <= self.center.x + translation.x) {
+                self.view.centerX = self.center.x + translation.x;
+            }
+            else {
+                self.view.right = left;
+            }
+        }
+    }
+    else if(recognizer.state == UIGestureRecognizerStateEnded) { // end slide.
         [UIView beginAnimations:[NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]] context:NULL];
         
         CGFloat animationDuration = 0.0f;
@@ -206,100 +301,6 @@
         [UIView commitAnimations];
 
         self.center = self.view.center;
-    }
-    else if(recognizer.state == UIGestureRecognizerStateChanged) { // sliding.
-        UIView *transitionView = self.view.superview;
-        if (offset <= self.view.centerX && 0 < velocity.x) {
-            if (! (self.leftAvailable || self.rightAvailable)) {
-                if ([self shouldOpenViewControllerWithURL:self.leftURL]) {
-                    self.leftAvailable = YES;
-                    self.rightAvailable = NO;
-                    
-                    [self addShadow];
-                    if ([self.slideDelegate respondsToSelector:@selector(willOpenLeftViewController)]) {
-                        [self.slideDelegate willOpenLeftViewController];
-                    }
-                    [self.leftViewController.view removeFromSuperview];
-                    [self.leftViewController removeFromParentViewController];
-                    self.leftViewController = nil;
-                    [self.rightViewController.view removeFromSuperview];
-                    [self.rightViewController removeFromParentViewController];
-                    self.rightViewController = nil;
-
-                    self.leftViewController = [self.navigator viewControllerForURL:self.leftURL
-                                                                         withQuery:nil];
-                    [transitionView insertSubview:self.leftViewController.view
-                                    belowSubview:self.view];
-                    [transitionView sendSubviewToBack:self.leftViewController.view];
-                    self.leftViewController.view.frame = CGRectMake(0.0f, 0.0f,
-                                                                    self.leftViewController.view.frame.size.width,
-                                                                    self.leftViewController.view.frame.size.height);
-                }
-            }
-        }
-        else if (offset - self.rightWidth >= self.view.centerX && 0 < velocity.x) {
-            if ([self.rightViewController shouldOpenViewControllerWithURL:self.url]) {
-                ;;
-            }
-        }
-        else if (offset >= self.view.centerX && 0 > velocity.x) {
-            if (! (self.leftAvailable || self.rightAvailable)) {
-                if ([self shouldOpenViewControllerWithURL:self.rightURL]) {
-                    self.leftAvailable = NO;
-                    self.rightAvailable = YES;
-                    
-                    [self addShadow];
-                    if ([self.slideDelegate respondsToSelector:@selector(willOpenRightViewController)]) {
-                        [self.slideDelegate willOpenRightViewController];
-                    }
-                    [self.leftViewController.view removeFromSuperview];
-                    [self.leftViewController removeFromParentViewController];
-                    self.leftViewController = nil;
-                    [self.rightViewController.view removeFromSuperview];
-                    [self.rightViewController removeFromParentViewController];
-                    self.rightViewController = nil;
-
-                    self.rightViewController = [self.navigator viewControllerForURL:self.rightURL
-                                                                          withQuery:nil];
-                    [transitionView insertSubview:self.rightViewController.view
-                                    belowSubview:self.view];
-                    [transitionView sendSubviewToBack:self.rightViewController.view];
-                    self.rightViewController.view.frame = CGRectMake(0.0f, 0.0f,
-                                                                    self.rightViewController.view.frame.size.width,
-                                                                    self.rightViewController.view.frame.size.height);
-                }
-            }
-        }
-        else if (offset + self.leftWidth <= self.view.centerX && 0 > velocity.x) {
-            if ([self.leftViewController shouldOpenViewControllerWithURL:self.url]) {
-                ;;
-            }
-        }
-
-        if (self.leftAvailable) { // left view only.
-            if (offset > self.center.x + translation.x) {
-                self.view.left = 0.0f;
-            }
-            else if (offset <= self.center.x + translation.x
-                     && self.view.width - right + offset >= self.center.x + translation.x) {
-                self.view.centerX = self.center.x + translation.x;
-            }
-            else {
-                self.view.left = self.view.width - right;
-            }
-        }
-        else if (self.rightAvailable) { // right view only.
-            if (self.view.width - offset <= self.center.x + translation.x) {
-                self.view.right = self.view.width;
-            }
-            else if (self.view.width - offset >= self.center.x + translation.x
-                     && left - offset <= self.center.x + translation.x) {
-                self.view.centerX = self.center.x + translation.x;
-            }
-            else {
-                self.view.right = left;
-            }
-        }
     }
 }
 

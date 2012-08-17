@@ -31,7 +31,7 @@
     
     UMViewController        *leftViewController;
     UMViewController        *rightViewController;
-    
+        
     BOOL                    leftAvailable;
     BOOL                    rightAvailable;
     
@@ -50,11 +50,15 @@
 - (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl;
 - (void)openedFromViewControllerWithURL:(NSURL *)aUrl;
 
+- (void)backToInitialStatus;
+
 @property (strong, nonatomic) NSURL                 *url;
 @property (strong, nonatomic) UMNavigator           *navigator;
 
 @property (strong, nonatomic) NSDictionary          *params;
 @property (strong, nonatomic) NSDictionary          *query;
+
+@property (strong, nonatomic) UMViewController      *lastViewController;
 
 @property (assign, nonatomic) id<UMSlideDelegate>   slideDelegate;
 
