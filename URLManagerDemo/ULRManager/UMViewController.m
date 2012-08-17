@@ -7,6 +7,10 @@
 //
 
 #define DEFAULT_SLIDE_VC_WIDTH      320.0f - 44.0f
+#define SILENT_DISTANCE             40.0f
+#define SILENT_DISTANCE_B           20.0f
+
+#define ANIMATION_DURATION          0.3f
 
 #import "UMViewController.h"
 #import "UMTools.h"
@@ -18,6 +22,7 @@
 
 - (void)addShadow;
 - (void)initialStatus;
+- (void)delaySetProperties;
 
 @property (strong, nonatomic) UIPanGestureRecognizer        *panRecognizer;
 @property (assign, nonatomic) CGPoint                       center;
@@ -156,7 +161,8 @@
         UIView *transitionView = self.view.superview;
         if (offset <= self.view.centerX && 0 < velocity.x) {
             if (! (self.leftAvailable || self.rightAvailable)) {
-                if ([self shouldOpenViewControllerWithURL:self.leftURL]) {
+                if (SILENT_DISTANCE < abs(translation.x)
+                    && [self shouldOpenViewControllerWithURL:self.leftURL]) {
                     self.leftAvailable = YES;
                     self.rightAvailable = NO;
                     
@@ -185,7 +191,8 @@
         }
         else if (offset >= self.view.centerX && 0 > velocity.x) {
             if (! (self.leftAvailable || self.rightAvailable)) {
-                if ([self shouldOpenViewControllerWithURL:self.rightURL]) {
+                if (SILENT_DISTANCE < abs(translation.x)
+                    && [self shouldOpenViewControllerWithURL:self.rightURL]) {
                     self.leftAvailable = NO;
                     self.rightAvailable = YES;
                     
@@ -212,29 +219,23 @@
                 }
             }
         }
-        
+
         if (self.leftAvailable) { // left view only.
             if (offset > self.center.x + translation.x) {
                 self.view.left = 0.0f;
             }
-            else if (offset <= self.center.x + translation.x
-                     && self.view.width - right + offset >= self.center.x + translation.x) {
+            else if (offset + SILENT_DISTANCE <= self.center.x + translation.x
+                     && self.view.width - right + offset - SILENT_DISTANCE_B >= self.center.x + translation.x) {
                 self.view.centerX = self.center.x + translation.x;
-            }
-            else {
-                self.view.left = self.view.width - right;
             }
         }
         else if (self.rightAvailable) { // right view only.
             if (self.view.width - offset <= self.center.x + translation.x) {
                 self.view.right = self.view.width;
             }
-            else if (self.view.width - offset >= self.center.x + translation.x
-                     && left - offset <= self.center.x + translation.x) {
+            else if (self.view.width - offset - SILENT_DISTANCE >= self.center.x + translation.x
+                     && left - offset + SILENT_DISTANCE_B <= self.center.x + translation.x) {
                 self.view.centerX = self.center.x + translation.x;
-            }
-            else {
-                self.view.right = left;
             }
         }
     }
@@ -247,7 +248,7 @@
             if (self.leftAvailable &&
                 ((self.leftWidth / 3 + offset < self.center.x + translation.x)
                  || (500.0f < velocity.x && offset < self.center.x + translation.x))) { // center to right, more than 1/3 left view width.
-                    animationDuration = 0.5f * translation.x / self.leftWidth;
+                    animationDuration = ANIMATION_DURATION * translation.x / self.leftWidth;
                     [UIView setAnimationDuration:animationDuration];
                     self.view.left = self.view.width - right;
                     if (self.center.x == offset) {
@@ -255,24 +256,23 @@
                     }
             }
             else if (500.0f >= velocity.x && offset - 2 * self.rightWidth / 3 > self.center.x + translation.x) { // left to center, less than 1/3 right view width.
-                animationDuration = 0.5f * translation.x / self.rightWidth;
+                animationDuration = ANIMATION_DURATION * translation.x / self.rightWidth;
                 [UIView setAnimationDuration:animationDuration];
                 self.view.right = left;
             }
             else { // left to center, more than 1/3 right view width, center to right, less than 1/3 left view width.
-                animationDuration = 0.5f * translation.x / self.rightWidth;
+                animationDuration = ANIMATION_DURATION * translation.x / self.rightWidth;
                 [UIView setAnimationDuration:animationDuration];
                 
                 self.view.centerX = offset;
-                self.leftAvailable = NO;
-                self.rightAvailable = NO;
+                [self performSelector:@selector(delaySetProperties) withObject:nil afterDelay:animationDuration + 0.3f];
             }
         }
         else { // right to left.
             if (self.rightAvailable &&
                 ((offset - self.rightWidth / 3 > self.center.x + translation.x)
                 || (-500.0f > velocity.x && offset > self.center.x + translation.x))) { // center to left, more than 1/3 right view width.
-                    animationDuration = 0.5f * translation.x / self.rightWidth;
+                    animationDuration = ANIMATION_DURATION * translation.x / self.rightWidth;
                     [UIView setAnimationDuration:animationDuration];
                     self.view.right = left;
                     if (self.center.x == offset) {
@@ -280,17 +280,16 @@
                     }
             }
             else if (-500.0f <= velocity.x && offset + 2 * self.leftWidth / 3 < self.center.x + translation.x) { // right to center, less than 1/3 left view width.
-                animationDuration = 0.5f * translation.x / self.leftWidth;
+                animationDuration = ANIMATION_DURATION * translation.x / self.leftWidth;
                 [UIView setAnimationDuration:animationDuration];
                 self.view.left = self.view.width - right;
             }
             else { // center to left, less than 1/3 right view width, right to center, more than 1/3 left view width.
-                animationDuration = 0.5f * translation.x / self.leftWidth;
+                animationDuration = ANIMATION_DURATION * translation.x / self.leftWidth;
                 [UIView setAnimationDuration:animationDuration];
 
                 self.view.centerX = offset;
-                self.leftAvailable = NO;
-                self.rightAvailable = NO;
+                [self performSelector:@selector(delaySetProperties) withObject:nil afterDelay:animationDuration + 0.3f];
             }
         }
 
@@ -318,13 +317,17 @@
 - (void)initialStatus {
     if (self.leftAvailable || self.rightAvailable) {
         [UIView beginAnimations:[NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]] context:NULL];
-        [UIView setAnimationDuration:0.5f];
+        [UIView setAnimationDuration:ANIMATION_DURATION];
 
         self.view.left = 0;
         
         [UIView commitAnimations];
     }
+    [self performSelector:@selector(delaySetProperties) withObject:nil afterDelay:ANIMATION_DURATION];
+}
 
+- (void)delaySetProperties
+{
     self.center = self.view.center;
     
     self.leftAvailable = NO;
