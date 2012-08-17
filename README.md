@@ -9,7 +9,7 @@ URLManager是为iOS App开发的导航组件。使用URL Scheme管理整个App�
 把URLManager目录拷贝到你的工程下。
 
 在AppDelegate中初始化Navigator和配置信息
-
+#### UMgrAppDelegate.m
 <pre>
     self.viewController = [[UMgrDemoViewController alloc] initWithURL:[NSURL URLWithString:@"um://demo"]];
     self.navigator = [[UMNavigator alloc] initWithRootViewController:self.viewController];
@@ -32,6 +32,9 @@ ViewController的初始化方法变为
 
 <pre>
 - (id)initWithURL:(NSURL *)aUrl;
+
+// 或
+
 - (id)initWithURL:(NSURL *)aUrl query:(NSDictionary *)query;
 </pre>
 
@@ -39,12 +42,15 @@ ViewController的初始化方法变为
 
 在UMgrDemoViewController中可以通过一下代码调用新的ViewController
 
+#### UMgrDemoViewController.m
 <pre>
     [self.navigator openURL:[[NSURL URLWithString:@"um://demob/path/aaa"]
                              addParams:[NSDictionary dictionaryWithObjectsAndKeys:
                                         @"va", @"ka",
                                         @"vb", @"kb",
                                         nil]]];
+
+// 或
 
     [self.navigator openURL:[NSURL URLWithString:@"um://demob/?a=b"]
                   withQuery:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -65,6 +71,8 @@ ViewController的初始化方法变为
 继承自UMViewController的ViewController支持 Path 首页一样的左右滑动，左右的View也通过单独ViewController控制，并用URL管理。
 
 在ViewController中实现 UMSlideDelegate 的方法即可实现
+
+#### UMgrDemoViewController.h
 <pre>
 #import "UMViewController.h"
 
@@ -72,7 +80,7 @@ ViewController的初始化方法变为
 
 @end
 </pre>
-
+#### UMgrDemoViewController.m
 <pre>
 - (NSURL *)leftViewControllerURL
 {
@@ -95,7 +103,11 @@ ViewController的初始化方法变为
 
 </pre>
 
-
+调用 backToInitialStatus 方法可以使滑动后的 ViewController 恢复
+#### UMgrDemoBViewController.m
+<pre>
+[self backToInitialStatus];
+</pre>
 
 
 

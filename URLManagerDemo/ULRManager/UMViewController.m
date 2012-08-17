@@ -263,9 +263,6 @@
                 animationDuration = 0.5f * translation.x / self.rightWidth;
                 [UIView setAnimationDuration:animationDuration];
                 
-                if (self.rightAvailable && offset != self.center.x) {
-                    [self openedFromViewControllerWithURL:self.rightViewController.url];
-                }
                 self.view.centerX = offset;
                 self.leftAvailable = NO;
                 self.rightAvailable = NO;
@@ -291,9 +288,6 @@
                 animationDuration = 0.5f * translation.x / self.leftWidth;
                 [UIView setAnimationDuration:animationDuration];
 
-                if (self.leftAvailable && offset != self.center.x) {
-                    [self openedFromViewControllerWithURL:self.leftViewController.url];
-                }
                 self.view.centerX = offset;
                 self.leftAvailable = NO;
                 self.rightAvailable = NO;
@@ -322,12 +316,14 @@
 }
 
 - (void)initialStatus {
-    [UIView beginAnimations:[NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]] context:NULL];
-    [UIView setAnimationDuration:0.5f];
+    if (self.leftAvailable || self.rightAvailable) {
+        [UIView beginAnimations:[NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]] context:NULL];
+        [UIView setAnimationDuration:0.5f];
 
-    self.view.left = 0;
-
-    [UIView commitAnimations];
+        self.view.left = 0;
+        
+        [UIView commitAnimations];
+    }
 
     self.center = self.view.center;
     
