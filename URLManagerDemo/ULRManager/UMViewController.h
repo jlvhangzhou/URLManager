@@ -52,6 +52,8 @@
 - (void)openedFromViewControllerWithURL:(NSURL *)aUrl;
 
 - (void)backToInitialStatus;
+- (void)openLeftViewController;
+- (void)openRightViewController;
 
 @property (strong, nonatomic) NSURL                 *url;
 @property (strong, nonatomic) UMNavigator           *navigator;

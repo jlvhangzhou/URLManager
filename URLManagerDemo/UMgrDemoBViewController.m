@@ -57,7 +57,6 @@
     if ([aUrl.host isEqualToString:@"demo"]) {
         [self performSelector:@selector(backToInitialStatus) withObject:nil afterDelay:3.0f];
     }
-
 }
 
 @end

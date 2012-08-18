@@ -60,6 +60,17 @@
     [btnWeb addTarget:self action:@selector(gotoDemoWeb) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnWeb];
 
+    UIButton *btnLeft = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btnLeft.frame = CGRectMake(10.0f, 164.0f, 300.0f, 44.0f);
+    [btnLeft setTitle:@"Open Left." forState:UIControlStateNormal];
+    [btnLeft addTarget:self action:@selector(openLeftViewController) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnLeft];
+
+    UIButton *btnRight = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btnRight.frame = CGRectMake(10.0f, 214.0f, 300.0f, 44.0f);
+    [btnRight setTitle:@"Open Right." forState:UIControlStateNormal];
+    [btnRight addTarget:self action:@selector(openRightViewController) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnRight];
 }
 
 - (BOOL)shouldOpenViewControllerWithURL:(NSURL *)aUrl
