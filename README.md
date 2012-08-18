@@ -103,6 +103,14 @@ ViewController的初始化方法变为
 
 </pre>
 
+也可以通过调用 open 方法打开左右的ViewController
+#### UMgrDemoViewController.m
+<pre>
+[self openRightViewController];
+// 或
+[self openLeftViewController];
+</pre>
+
 调用 backToInitialStatus 方法可以使滑动后的 ViewController 恢复
 #### UMgrDemoBViewController.m
 <pre>
